@@ -1,0 +1,35 @@
+---
+- name: add litestack repo
+  action: copy src=../files/zerovm-precise.list dest=/etc/apt/sources.list.d/zerovm-precise.list owner=root group=root mode=0644
+  tags:
+    - prereq
+
+- name: add litestack repo file
+  action: copy src=../files/packages.ubuntu.key dest=/root/packages.ubuntu.key mode=0644
+  tags:
+    - prereq
+
+- name: add litestack repo key
+  action: shell apt-key add /root/packages.ubuntu.key
+  tags:
+    - prereq
+
+- name: ensure apt repo is up to date
+  action: apt update-cache=yes
+  tags:
+    - prereq
+
+- name: add build-essential package
+  action: apt pkg=build-essential
+  tags:
+    - prereq
+
+- name: add all zerovm packages
+  action: apt pkg=$item
+  with_items:
+    - zerovm
+    - zerovm-dev
+    - nacl-sdk
+  tags:
+    - install
+
