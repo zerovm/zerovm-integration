@@ -33,3 +33,12 @@
   tags:
     - install
 
+- name: add all zwift packages
+  action: apt pkg=$item
+  with_items:
+    - python-zwift
+    - zwift
+    - zwift-saio
+  tags:
+    - install
+

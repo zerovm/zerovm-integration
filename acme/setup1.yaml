@@ -1,0 +1,9 @@
+---
+- hosts: test
+  user: vagrant
+  sudo: True
+  gather_facts: True
+
+  tasks:
+    - include: ../tasks/zerovm-tests1.yaml
+
